@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MilkyCode · Register a Legal Imperative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628; --navy-mid: #16294a; --navy-light: #1e3a6e;
+    --gold: #c8a84b; --gold-light: #e8c96a; --gold-pale: #f5e9c8;
+    --silver: #8fa8c8; --silver-light: #c8d8e8;
+    --white: #f8f5ef; --text: #e8e0d0; --text-muted: #8fa8c8; --text-dim: #4a6080;
+    --border: rgba(200,168,75,0.18); --border-hover: rgba(200,168,75,0.45);
+    --green-bg: rgba(50,120,80,0.18); --green-text: #6fcf97;
+    --amber-bg: rgba(180,120,30,0.18); --amber-text: #f2994a;
+    --blue-bg: rgba(30,80,160,0.22); --blue-text: #56a0e0;
+    --purple-bg: rgba(90,60,160,0.2); --purple-text: #bb86fc;
+    --red-bg: rgba(160,40,40,0.18); --red-text: #eb5757;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--navy);color:var(--text);font-family:'Literata',Georgia,serif;font-size:15px;line-height:1.6;min-height:100vh;}
+  body::before{content:'';position:fixed;inset:0;background-image:
+    radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 34% 5%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 67% 12%, rgba(200,168,75,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 82% 22%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 5% 55%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 23% 72%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 78% 65%, rgba(200,168,75,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 96% 78%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 42%, rgba(255,255,255,0.25) 0%, transparent 100%),
+    radial-gradient(1px 1px at 15% 92%, rgba(255,255,255,0.35) 0%, transparent 100%);
+    pointer-events:none;z-index:0;}
+  .page{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:2.5rem 2rem 4rem;}
+  .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:2.5rem;padding-bottom:1rem;border-bottom:0.5px solid var(--border);}
+  .site-name{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--gold);letter-spacing:0.12em;text-transform:uppercase;}
+  .nav-links{display:flex;gap:1.5rem;align-items:center;}
+  .nav-link{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.15s;}
+  .nav-link:hover{color:var(--gold);}
+  .nav-link.active{color:var(--gold);}
+  .lang-toggle{display:flex;border:0.5px solid var(--border);border-radius:4px;overflow:hidden;}
+  .lang-btn{background:none;border:none;padding:5px 14px;font-family:'DM Mono',monospace;font-size:11px;font-weight:500;letter-spacing:0.08em;cursor:pointer;color:var(--text-muted);transition:all 0.15s;}
+  .lang-btn.active{background:rgba(200,168,75,0.15);color:var(--gold);}
+  .lang-btn:hover:not(.active){color:var(--text);background:rgba(255,255,255,0.04);}
+
+  .page-header{margin-bottom:2.5rem;animation:fadeUp 0.6s ease both;}
+  .constellation-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold);margin-bottom:0.75rem;opacity:0.8;}
+  h1{font-family:'DM Serif Display',serif;font-size:clamp(1.8rem,4.5vw,2.8rem);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:0.5rem;letter-spacing:-0.01em;}
+  h1 em{font-style:italic;color:var(--gold-light);}
+  .page-subtitle{font-size:14px;color:var(--text-muted);margin-bottom:1rem;font-weight:300;max-width:620px;}
+  .disclaimer{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-dim);letter-spacing:0.02em;}
+
+  .grid-2{display:grid;grid-template-columns:1.1fr 0.9fr;gap:2rem;align-items:start;}
+  @media(max-width:760px){.grid-2{grid-template-columns:1fr;}}
+
+  .panel{background:rgba(255,255,255,0.025);border:0.5px solid var(--border);border-radius:6px;padding:1.75rem;animation:fadeUp 0.6s 0.1s ease both;}
+  .panel-title{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin-bottom:1.25rem;}
+
+  .field{margin-bottom:1.1rem;}
+  .field label{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.07em;text-transform:uppercase;color:var(--text-dim);margin-bottom:5px;}
+  .field textarea, .field input, .field select{
+    width:100%;background:rgba(0,0,0,0.25);border:0.5px solid var(--border);border-radius:3px;
+    color:var(--text);font-family:'Literata',Georgia,serif;font-size:13px;padding:0.6rem 0.7rem;
+    transition:border-color 0.15s;resize:vertical;
+  }
+  .field textarea{min-height:80px;}
+  .field input:focus, .field textarea:focus, .field select:focus{outline:none;border-color:var(--border-hover);}
+  .field-hint{font-size:11px;color:var(--text-dim);margin-top:4px;font-style:italic;}
+  .char-count{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-dim);text-align:right;margin-top:3px;}
+  .char-count.over{color:var(--red-text);}
+  .char-count.ok{color:var(--green-text);}
+
+  .radio-group{display:flex;gap:8px;flex-wrap:wrap;}
+  .radio-pill{font-family:'DM Mono',monospace;font-size:11px;padding:5px 12px;border-radius:20px;border:0.5px solid var(--border);background:none;color:var(--text-muted);cursor:pointer;transition:all 0.15s;}
+  .radio-pill.active{background:rgba(200,168,75,0.12);color:var(--gold);border-color:rgba(200,168,75,0.4);}
+
+  .submit-btn{
+    width:100%;font-family:'DM Mono',monospace;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;
+    padding:0.85rem;border:0.5px solid var(--border-hover);border-radius:4px;background:rgba(200,168,75,0.1);
+    color:var(--gold);cursor:pointer;transition:all 0.15s;margin-top:0.5rem;
+  }
+  .submit-btn:hover{background:rgba(200,168,75,0.18);}
+  .submit-btn:disabled{opacity:0.4;cursor:not-allowed;}
+
+  /* MilkyCode preview */
+  .code-preview{font-family:'DM Mono',monospace;background:rgba(0,0,0,0.35);border:0.5px solid var(--border-hover);border-radius:4px;padding:1.1rem;margin-top:0.5rem;}
+  .code-display{font-size:14px;letter-spacing:0.04em;word-break:break-all;line-height:1.8;}
+  .seg-a{color:var(--gold-light);} .seg-b{color:var(--blue-text);} .seg-c{color:var(--purple-text);} .seg-dash{color:var(--text-dim);}
+  .code-legend{display:flex;gap:14px;margin-top:0.85rem;flex-wrap:wrap;}
+  .legend-item{display:flex;align-items:center;gap:5px;font-size:10px;color:var(--text-dim);font-family:'DM Mono',monospace;}
+  .legend-dot{width:8px;height:8px;border-radius:2px;}
+  .dot-a{background:var(--gold-light);} .dot-b{background:var(--blue-text);} .dot-c{background:var(--purple-text);}
+
+  .info-box{background:rgba(200,168,75,0.05);border:0.5px solid var(--border);border-radius:4px;padding:1rem 1.1rem;margin-top:1.25rem;font-size:12px;color:var(--text-muted);line-height:1.7;}
+  .info-box strong{color:var(--text);font-weight:500;}
+  .info-box .ref{font-family:'DM Mono',monospace;font-size:10px;color:var(--text-dim);margin-top:0.6rem;display:block;}
+
+  /* Existing imperatives browse */
+  .section-title{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);margin:2.5rem 0 1rem;animation:fadeUp 0.6s 0.15s ease both;}
+  .imperative-card{
+    border:0.5px solid var(--border);border-radius:4px;padding:1rem 1.1rem;margin-bottom:8px;
+    cursor:pointer;transition:border-color 0.15s,background 0.15s;background:rgba(255,255,255,0.015);
+  }
+  .imperative-card:hover{border-color:var(--border-hover);background:rgba(200,168,75,0.03);}
+  .imperative-card.open{border-color:rgba(200,168,75,0.5);background:rgba(200,168,75,0.04);}
+  .imp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;}
+  .imp-text{font-size:13.5px;color:var(--text);flex:1;}
+  .imp-meta{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;}
+  .pill-sm{font-family:'DM Mono',monospace;font-size:9.5px;padding:2px 8px;border-radius:2px;border:0.5px solid;}
+  .pill-area{border-color:rgba(86,160,224,0.4);color:var(--blue-text);background:rgba(86,160,224,0.07);}
+  .owners-count{font-family:'DM Mono',monospace;font-size:11px;color:var(--gold);white-space:nowrap;}
+  .imp-detail{display:none;margin-top:0.85rem;padding-top:0.85rem;border-top:0.5px solid var(--border);}
+  .imp-detail.open{display:block;}
+  .owner-list{display:flex;flex-wrap:wrap;gap:6px;margin-top:0.5rem;}
+  .owner-chip{font-family:'DM Mono',monospace;font-size:10px;padding:3px 9px;border-radius:2px;background:rgba(255,255,255,0.04);color:var(--silver-light);border:0.5px solid var(--border);}
+  .adopt-btn{font-family:'DM Mono',monospace;font-size:10.5px;padding:4px 11px;border-radius:3px;border:0.5px solid var(--border-hover);background:rgba(200,168,75,0.08);color:var(--gold);cursor:pointer;margin-top:0.7rem;}
+  .adopt-btn:hover{background:rgba(200,168,75,0.16);}
+
+  .filter-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem;}
+  .filter-btn{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.07em;text-transform:uppercase;padding:4px 12px;border-radius:2px;border:0.5px solid var(--border);background:none;color:var(--text-dim);cursor:pointer;transition:all 0.12s;}
+  .filter-btn:hover{color:var(--text-muted);border-color:var(--border-hover);}
+  .filter-btn.active{background:rgba(200,168,75,0.12);color:var(--gold);border-color:rgba(200,168,75,0.4);}
+
+  .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy-mid);border:0.5px solid var(--border-hover);border-radius:5px;padding:0.8rem 1.3rem;font-family:'DM Mono',monospace;font-size:12px;color:var(--gold);opacity:0;transition:all 0.3s;pointer-events:none;z-index:200;}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+  .footer{margin-top:3rem;padding-top:1.5rem;border-top:0.5px solid var(--border);display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:1rem;}
+  .footer-left{font-size:12px;color:var(--text-dim);line-height:1.8;}
+  .footer-left strong{color:var(--text-muted);font-weight:400;}
+  .footer-right{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);text-align:right;}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+  @media(max-width:700px){
+    .page{padding:1.5rem 1rem 3rem;}
+    .nav-links{gap:0.9rem;}
+    h1{font-size:1.8rem;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <div class="site-name">MilkyCode · milkycode.space</div>
+    <div class="nav-links">
+      <a class="nav-link" href="index.html" data-i="nav-bulletin">Bulletin</a>
+      <a class="nav-link active" href="register.html" data-i="nav-register">Register</a>
+      <a class="nav-link" href="account.html" data-i="nav-account">Account</a>
+      <a class="nav-link" href="polaris.html" data-i="nav-polaris">Post Office</a>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">RU</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-header">
+    <div class="constellation-label" data-i="constellation">✦ Ursa Major Registry</div>
+    <h1><em data-i="title-em">Legal Imperative</em> <span data-i="title-rest">Registration</span></h1>
+    <p class="disclaimer" data-i="disclaimer">Conceptual registration only — not a legal filing.</p>
+  </div>
+
+  <div class="grid-2">
+    <!-- LEFT: Registration form -->
+    <div class="panel">
+      <div class="field">
+        <label data-i="lbl-sense">Sense</label>
+        <textarea id="inp-sense" maxlength="240" placeholder="e.g. The sovereign right to control one's resources" oninput="updatePreview()"></textarea>
+      </div>
+
+      <div class="field">
+        <label data-i="lbl-area">Area / case</label>
+        <select id="inp-area" onchange="updatePreview()">
+          <option value="elections" data-i="opt-elections">Elections</option>
+          <option value="court" data-i="opt-court">Court case</option>
+          <option value="philosophy" data-i="opt-philosophy">Philosophy</option>
+          <option value="finance" data-i="opt-finance">Finance</option>
+          <option value="custom" data-i="opt-custom">Custom</option>
+        </select>
+        <input type="text" id="inp-area-custom" placeholder="Name the area" style="margin-top:6px;display:none;" oninput="updatePreview()">
+      </div>
+
+      <div class="field">
+        <label data-i="lbl-owner">Owner</label>
+        <input type="text" id="inp-owner" placeholder="e.g. Svetlana Poliakova" oninput="updatePreview()">
+      </div>
+
+      <div class="code-preview">
+        <div class="code-display" id="code-display">
+          <span class="seg-a">—————————</span><span class="seg-dash">-</span><span class="seg-b">—————</span><span class="seg-dash">-</span><span class="seg-c">——————————————</span>
+        </div>
+        <div class="code-legend">
+          <div class="legend-item"><span class="legend-dot dot-a"></span><span>9</span></div>
+          <div class="legend-item"><span class="legend-dot dot-b"></span><span>5</span></div>
+          <div class="legend-item"><span class="legend-dot dot-c"></span><span>14</span></div>
+        </div>
+      </div>
+
+      <button class="submit-btn" id="submit-btn" onclick="registerImperative()" data-i="btn-register">Register</button>
+    </div>
+
+    <!-- RIGHT: existing imperatives, area filter -->
+    <div class="panel">
+      <div class="filter-row" id="imp-filters"></div>
+      <div id="imp-list"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-left">
+      <strong>Svetlana Poliakova</strong><br>
+      <span data-i="footer-title">Founder, Evolution Pathfinder LLC · Special Envoy of the Milky Way</span>
+    </div>
+    <div class="footer-right">
+      <span data-i="footer-issue">Registry · Ursa Major Systems Coupling</span><br>
+      milkycode.space
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ── i18n ── */
+const T = {
+  en: {
+    "nav-bulletin":"Bulletin","nav-register":"Register","nav-account":"Account",
+    constellation:"✦ Ursa Major Registry",
+    "title-em":"Legal Imperative","title-rest":"Registration",
+    disclaimer:"Conceptual registration only — not a legal filing.",
+    "lbl-sense":"Sense",
+    "lbl-area":"Area / case",
+    "opt-elections":"Elections","opt-court":"Court case","opt-philosophy":"Philosophy","opt-finance":"Finance","opt-custom":"Custom",
+    "lbl-owner":"Owner",
+    "btn-register":"Register",
+    placeholder_sense:"e.g. The sovereign right to control one's resources",
+    placeholder_owner:"e.g. Svetlana Poliakova",
+    placeholder_area:"Name the area",
+    toast_registered:"✓ Registered",
+    toast_adopted:"✓ Adopted",
+    toast_incomplete:"Fill in all three fields",
+    owners_label: n => n===1 ? "1 owner" : n+" owners",
+    filters:{all:"All",elections:"Elections",court:"Court",philosophy:"Philosophy",finance:"Finance"},
+  },
+  ru: {
+    "nav-bulletin":"Бюллетень","nav-register":"Регистрация","nav-account":"Аккаунт",
+    constellation:"✦ Реестр Большой Медведицы",
+    "title-em":"Регистрация","title-rest":"императива",
+    disclaimer:"Только концептуальная регистрация — не юридическая подача.",
+    "lbl-sense":"Смысл",
+    "lbl-area":"Область / дело",
+    "opt-elections":"Выборы","opt-court":"Суд","opt-philosophy":"Философия","opt-finance":"Финансы","opt-custom":"Другое",
+    "lbl-owner":"Владелец",
+    "btn-register":"Зарегистрировать",
+    placeholder_sense:"например: суверенное право управлять своими ресурсами",
+    placeholder_owner:"например: Светлана Полякова",
+    placeholder_area:"Укажите область",
+    toast_registered:"✓ Зарегистрировано",
+    toast_adopted:"✓ Присоединено",
+    toast_incomplete:"Заполните все три поля",
+    owners_label: n => n===1 ? "1 владелец" : n+" владельцев",
+    filters:{all:"Все",elections:"Выборы",court:"Суд",philosophy:"Философия",finance:"Финансы"},
+  }
+};
+
+let lang = "en";
+
+function setLang(l){
+  lang = l;
+  document.querySelectorAll(".lang-btn").forEach(b=>b.classList.toggle("active", b.dataset.lang===l));
+  document.querySelectorAll("[data-i]").forEach(el=>{
+    const key = el.dataset.i;
+    if (T[l][key] !== undefined) el.innerHTML = T[l][key];
+  });
+  document.getElementById("inp-sense").placeholder = T[l].placeholder_sense;
+  document.getElementById("inp-owner").placeholder = T[l].placeholder_owner;
+  document.getElementById("inp-area-custom").placeholder = T[l].placeholder_area;
+  renderImpFilters();
+  renderImperatives();
+}
+
+document.getElementById("inp-area").addEventListener("change", function(){
+  document.getElementById("inp-area-custom").style.display = this.value === "custom" ? "block" : "none";
+});
+
+/* ── MilkyCode generation (deterministic hash-based, client-side) ── */
+function hashStr(str, len, alphabet) {
+  let h1 = 0x811c9dc5, h2 = 0x1000193;
+  for (let i=0;i<str.length;i++){
+    const c = str.charCodeAt(i);
+    h1 = (h1 ^ c) >>> 0; h1 = Math.imul(h1, 16777619) >>> 0;
+    h2 = (h2 + c*31) >>> 0; h2 = Math.imul(h2, 2654435761) >>> 0;
+  }
+  let out = "";
+  let seed = (h1 ^ h2) >>> 0;
+  for (let i=0;i<len;i++){
+    seed = (Math.imul(seed, 1103515245) + 12345) >>> 0;
+    out += alphabet[seed % alphabet.length];
+  }
+  return out;
+}
+
+const ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+function genCode(sense, area, owner) {
+  const a = sense ? hashStr(sense.toUpperCase(), 9, ALPHA) : "—".repeat(9);
+  const b = area   ? hashStr(area.toUpperCase(), 5, ALPHA)  : "—".repeat(5);
+  const c = owner  ? hashStr(owner.toUpperCase(), 14, ALPHA): "—".repeat(14);
+  return {a,b,c};
+}
+
+function updatePreview(){
+  const sense = document.getElementById("inp-sense").value.trim();
+  const areaSel = document.getElementById("inp-area");
+  const area = areaSel.value === "custom" ? document.getElementById("inp-area-custom").value.trim() : areaSel.options[areaSel.selectedIndex].text;
+  const owner = document.getElementById("inp-owner").value.trim();
+  const {a,b,c} = genCode(sense, area, owner);
+  document.getElementById("code-display").innerHTML =
+    `<span class="seg-a">${sense?a:'—————————'}</span><span class="seg-dash">-</span><span class="seg-b">${area?b:'—————'}</span><span class="seg-dash">-</span><span class="seg-c">${owner?c:'——————————————'}</span>`;
+}
+
+/* ── Sample existing imperatives (would come from a DB) ── */
+let imperatives = [
+  {id:1, text:"The sovereign right of a people to control their own natural resources without foreign capture.", area:"finance", code:genCode("sovereign right resources","finance","ledger"), owners:["Svetlana Poliakova","D. Markov","Doc #EP-2026-004"]},
+  {id:2, text:"No agency historically responsible for political assassination may operate under diplomatic immunity.", area:"court", code:genCode("no assassin immunity","court","case ep001"), owners:["Svetlana Poliakova","A. Restrepo"]},
+  {id:3, text:"Electoral outcomes obtained through documented foreign interference are voidable upon proof.", area:"elections", code:genCode("electoral interference void","elections","filing 2026"), owners:["Svetlana Poliakova"]},
+  {id:4, text:"A state apparatus that subverts independent press forfeits claims to legitimate self-governance.", area:"philosophy", code:genCode("press subversion forfeit","philosophy","manifest v2"), owners:["Svetlana Poliakova","T. Hale","R. Okafor"]},
+];
+
+let impFilter = "all";
+let openImp = null;
+
+function renderImpFilters(){
+  const wrap = document.getElementById("imp-filters");
+  const keys = ["all","elections","court","philosophy","finance"];
+  wrap.innerHTML = keys.map(k=>`<button class="filter-btn${impFilter===k?' active':''}" onclick="setImpFilter('${k}')">${T[lang].filters[k]}</button>`).join("");
+}
+function setImpFilter(k){ impFilter=k; renderImpFilters(); renderImperatives(); }
+
+function renderImperatives(){
+  const list = document.getElementById("imp-list");
+  const rows = impFilter==="all" ? imperatives : imperatives.filter(i=>i.area===impFilter);
+  list.innerHTML = rows.map(imp=>{
+    const isOpen = openImp===imp.id;
+    return `
+    <div class="imperative-card${isOpen?' open':''}" onclick="toggleImp(${imp.id})">
+      <div class="imp-top">
+        <div class="imp-text">${imp.text}
+          <div class="imp-meta">
+            <span class="pill-sm pill-area">${T[lang].filters[imp.area]||imp.area}</span>
+          </div>
+        </div>
+        <div class="owners-count">${T[lang].owners_label(imp.owners.length)}</div>
+      </div>
+      <div class="imp-detail${isOpen?' open':''}">
+        <div class="mono" style="font-family:'DM Mono',monospace;font-size:11px;color:var(--silver);">${imp.code.a}-${imp.code.b}-${imp.code.c}</div>
+        <div class="owner-list">${imp.owners.map(o=>`<span class="owner-chip">${o}</span>`).join("")}</div>
+        <button class="adopt-btn" onclick="event.stopPropagation(); adoptImperative(${imp.id})">${lang==='ru'?'+ Присоединиться к этому императиву':'+ Adopt this imperative'}</button>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function toggleImp(id){ openImp = openImp===id ? null : id; renderImperatives(); }
+
+function adoptImperative(id){
+  const imp = imperatives.find(i=>i.id===id);
+  if (!imp.owners.includes("You")) imp.owners.push("You");
+  showToast(T[lang].toast_adopted);
+  renderImperatives();
+}
+
+/* ── Register new ── */
+function registerImperative(){
+  const sense = document.getElementById("inp-sense").value.trim();
+  const areaSel = document.getElementById("inp-area");
+  const area = areaSel.value === "custom" ? document.getElementById("inp-area-custom").value.trim() : areaSel.options[areaSel.selectedIndex].text;
+  const owner = document.getElementById("inp-owner").value.trim();
+  if (!sense || !area || !owner) { showToast(T[lang].toast_incomplete); return; }
+  const code = genCode(sense, area, owner);
+  const areaKey = areaSel.value==="custom" ? "custom" : areaSel.value;
+  imperatives.unshift({id: Date.now(), text: sense, area: areaKey, code, owners:[owner]});
+  persistToAccount(owner, sense, areaKey, code);
+  showToast(T[lang].toast_registered);
+  document.getElementById("inp-sense").value="";
+  document.getElementById("inp-owner").value="";
+  updatePreview();
+  renderImperatives();
+}
+
+function persistToAccount(owner, text, area, code) {
+  try {
+    const key = "mc_account_" + code.c;
+    let stored = JSON.parse(localStorage.getItem(key) || "null") || {name: owner, joined: "2026", imperatives: [], watching: []};
+    stored.imperatives.push({text, area, code});
+    localStorage.setItem(key, JSON.stringify(stored));
+  } catch(e) {}
+}
+
+function showToast(msg){
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  setTimeout(()=>t.classList.remove("show"), 2400);
+}
+
+/* ── Init ── */
+renderImpFilters();
+renderImperatives();
+updatePreview();
+</script>
+</body>
+</html>
