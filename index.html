@@ -84,6 +84,8 @@
     margin-bottom: 3rem;
     padding-bottom: 1rem;
     border-bottom: 0.5px solid var(--border);
+    flex-wrap: wrap;
+    gap: 1rem;
   }
 
   .site-name {
@@ -94,6 +96,25 @@
     letter-spacing: 0.12em;
     text-transform: uppercase;
   }
+
+  .nav-links {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+  }
+
+  .nav-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+
+  .nav-link:hover { color: var(--gold); }
+  .nav-link.active { color: var(--gold); }
 
   .lang-toggle {
     display: flex;
@@ -592,15 +613,21 @@
 
   <div class="topbar">
     <div class="site-name">MilkyCode · milkycode.space</div>
-    <div class="lang-toggle">
-      <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">RU</button>
+    <div class="nav-links">
+      <a class="nav-link active" href="index.html" data-i="nav-bulletin">Bulletin</a>
+      <a class="nav-link" href="register.html" data-i="nav-register">Register</a>
+      <a class="nav-link" href="account.html" data-i="nav-account">Account</a>
+      <a class="nav-link" href="polaris.html" data-i="nav-polaris">Post Office</a>
+      <div class="lang-toggle">
+        <button class="lang-btn active" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="ru" onclick="setLang('ru')">RU</button>
+      </div>
     </div>
   </div>
 
   <div class="bulletin-header">
     <div class="constellation-label" data-i="constellation">✦ Ursa Major · Alpha Dubhe · 2026–2029</div>
-    <h1><em data-i="title-em">Ursa Major</em> <span data-i="title-rest">Bulletin</span> <span style="font-size:0.45em; color:var(--text-dim); font-family:'DM Mono',monospace; font-style:normal; vertical-align:middle;">(TEST DATA)</span></h1>
+    <h1><em data-i="title-em">Ursa Major</em> <span data-i="title-rest">Bulletin</span></h1>
     <p class="bulletin-subtitle" data-i="subtitle">Lawsuits &amp; Financial Transactions · Evolution Pathfinder LLC, New York</p>
     <div class="protocol-pills">
       <span class="pill pill-gold">TIMEPMWE202629</span>
@@ -686,6 +713,9 @@
 const T = {
   en: {
     constellation: "✦ Ursa Major · Alpha Dubhe · 2026–2029",
+    "nav-bulletin": "Bulletin",
+    "nav-register": "Register",
+    "nav-account": "Account",
     "title-em": "Ursa Major",
     "title-rest": "Bulletin",
     subtitle: "Lawsuits & Financial Transactions · Evolution Pathfinder LLC, New York",
@@ -714,9 +744,14 @@ const T = {
     empty: "No cases match this filter.",
     upload_ok: "✓ Loaded",
     upload_err: "✗ Error reading CSV. Check format.",
+    watch: "Mark for control",
+    unwatch: "Remove from control",
   },
   ru: {
     constellation: "✦ Большая Медведица · Альфа Дубхе · 2026–2029",
+    "nav-bulletin": "Бюллетень",
+    "nav-register": "Регистрация",
+    "nav-account": "Аккаунт",
     "title-em": "Большая Медведица",
     "title-rest": "Бюллетень",
     subtitle: "Судебные дела и финансовые транзакции · Evolution Pathfinder LLC, Нью-Йорк",
@@ -745,6 +780,8 @@ const T = {
     empty: "Дел по выбранному фильтру не найдено.",
     upload_ok: "✓ Загружено",
     upload_err: "✗ Ошибка чтения CSV. Проверьте формат.",
+    watch: "Взять на контроль",
+    unwatch: "Снять с контроля",
   }
 };
 
@@ -760,6 +797,20 @@ let allCases = [
 let lang = "en";
 let filter = "all";
 let openId = null;
+let watched = new Set(JSON.parse(localStorage.getItem("mc_watched") || "[]").map(w => w.id));
+let watchedMeta = JSON.parse(localStorage.getItem("mc_watched") || "[]");
+
+function toggleWatch(id, subject) {
+  if (watched.has(id)) {
+    watched.delete(id);
+    watchedMeta = watchedMeta.filter(w => w.id !== id);
+  } else {
+    watched.add(id);
+    watchedMeta.push({id, subject});
+  }
+  localStorage.setItem("mc_watched", JSON.stringify(watchedMeta));
+  renderCases();
+}
 
 function setLang(l) {
   lang = l;
@@ -822,6 +873,7 @@ function renderCases() {
         <div class="detail-field"><div class="detail-key">${t.detail.milkycode}</div><div class="detail-val mono">${c.milkycode||"—"}</div></div>
       </div>
       ${c.notes ? `<div class="detail-notes">${c.notes}</div>` : ""}
+      <button class="csv-hint" style="margin-top:0.6rem;" onclick="event.stopPropagation(); toggleWatch('${c.id}', '${c.subject.replace(/'/g,"&#39;")}')">${watched.has(c.id) ? '★ '+t.unwatch : '☆ '+t.watch}</button>
     </div>`;
   }).join("");
 
