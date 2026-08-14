@@ -1,2 +1,2 @@
 # milkycode.space
-Milky Way Envoy: Bulletin
+Milky Way Envoy: Infrastructure
